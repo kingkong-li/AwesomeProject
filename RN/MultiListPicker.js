@@ -26,7 +26,10 @@ export default class MultiListPicker extends React.Component {
      * 这个方法主要用于初始化之后从网络拉新数据
      */
     componentDidMount() {
-        this.getMyCurrentDepth(dataList.godProviderList)
+
+        this.state.ToTalDepth=this.getMyCurrentDepth(dataList.godProviderData)
+        console.log('MultiListPicker componentDidMount start ToTalDepth=' + this.state.ToTalDepth);
+
     }
 
     render() {
@@ -178,31 +181,45 @@ export default class MultiListPicker extends React.Component {
 
     }
 
+    /**
+     *  获取对象的长度
+     * @param o
+     * @returns {number|*}
+     */
+     getObjectLength(o){
+        var t = typeof o;
+
+        if(t == 'string'){
+            return o.length;
+
+        }else if(t == 'object'){
+
+            var n = 0;
+
+            for(var i in o){
+
+                n++;
+            }
+
+            return n;
+        }
+        return 0;
+
+    }
+
 
     /**
      * 根据数据源类型设定数据深度
      * @param dataSource
      */
     getMyCurrentDepth(dataSource) {
-        console.log('MultiListPicker getMyCurrentDepth start')
+        console.log('MultiListPicker getMyCurrentDepth start dataSource=' + dataSource.toString());
+        if (dataSource.subList === null || this.getObjectLength(dataSource.subList) === 0) {
+            return 0;
+        } else {
+            return 1+this.getMyCurrentDepth(dataSource.subList[0])
+        }
 
-        this.setState((state) => {
-            if (dataSource.name === '厦门') {
-                console.log('MultiListPicker getMyCurrentDepth dataSource.name===张三')
-                return {
-                    ToTalDepth: 3
-
-                }
-            }
-            if (dataSource.name === '北京') {
-                console.log('MultiListPicker getMyCurrentDepth dataSource.name===张三')
-                return {
-                    ToTalDepth: 4
-
-                }
-            }
-
-        })
 
     }
 
