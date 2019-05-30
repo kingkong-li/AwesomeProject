@@ -17,6 +17,7 @@ export default class MultiListPicker extends React.Component {
             CurrentColumnIndex2:0,
             CurrentColumnIndex3:0,
             ChooseResult:'',
+            ChooserIndexArray:[],
 
         };
     }
@@ -28,7 +29,19 @@ export default class MultiListPicker extends React.Component {
     componentDidMount() {
 
         this.state.ToTalDepth=this.getMyCurrentDepth(dataList.godProviderData)
-        console.log('MultiListPicker componentDidMount start ToTalDepth=' + this.state.ToTalDepth);
+        console.log('MultiListPicker componentDidMount start ToTalDepth=' + this.state.ToTalDepth+", ChooserIndexArray"+this.state.ChooserIndexArray);
+
+    }
+
+    objectIsUndefinedOrNull(object) {
+        if (typeof(object) == "undefined" || object===null)
+        {
+            console.log('MultiListPicker checkUndefinedOrNull '+ "object is undefined or null")
+            return true;
+        }else {
+            return false;
+            console.log('MultiListPicker checkUndefinedOrNull '+ "object is valid")
+        }
 
     }
 
