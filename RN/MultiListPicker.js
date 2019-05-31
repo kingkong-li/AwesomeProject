@@ -10,7 +10,6 @@ export default class MultiListPicker extends React.Component {
         super(props);
         // 定义状态机
         this.state = {
-            Data: [],
             ToTalDepth: 3,
             CurrentColumnIndex0:0,
             CurrentColumnIndex1:0,
@@ -28,8 +27,17 @@ export default class MultiListPicker extends React.Component {
      */
     componentDidMount() {
 
-        this.state.ToTalDepth=this.getMyCurrentDepth(dataList.godProviderData)
-        console.log('MultiListPicker componentDidMount start ToTalDepth=' + this.state.ToTalDepth+", ChooserIndexArray"+this.state.ChooserIndexArray);
+        this.state.ToTalDepth=this.getDefaultCurrentDepth(dataList.godProviderData)
+
+        // 加载默认的chooseIndexArray
+        for(let k=0;k<this.state.ToTalDepth;k++){
+            this.state.ChooserIndexArray[k]=0;
+        }
+        console.log('MultiListPicker componentDidMount start default ToTalDepth=' + this.state.ToTalDepth+", ChooserIndexArray"+this.state.ChooserIndexArray);
+        this.setState((state) => {
+            return {
+
+            }});
 
     }
 
@@ -49,35 +57,24 @@ export default class MultiListPicker extends React.Component {
 
         var pages = [];
 
+        var dataSource=dataList.godProviderData;
+        this.state.ToTalDepth=this.getMyCurrentDepth(dataSource,0);
+        console.log('MultiListPicker render depth= '+ this.state.ToTalDepth)
         for(let i=0;i<this.state.ToTalDepth;i++){
-
-        }
-
+            var myListData=[];
+            for(let j=0;j<this.getObjectLength(dataSource.subList);j++){
+                myListData.push({key:dataSource.subList[j].Name})
+            }
+            console.log('MultiListPicker render myListData= '+ myListData)
             pages.push(
                 <FlatList
-                    data={[{key: dataList.cityList[0].cityName}, {key: dataList.cityList[1].cityName}]}
+                    data={myListData}
                     keyExtractor={item => item.keys}
-                    renderItem={(item,index) => this.renderItem(item,0)}
+                    renderItem={(item,index) => this.renderItem(item,i)}
                 />
             );
-        pages.push(
-            <FlatList
-                data={[{key: dataList.cityList[this.state.CurrentColumnIndex0].areaList[0].areaName}, {key: dataList.cityList[this.state.CurrentColumnIndex0].areaList[1].areaName},
-                    {key: dataList.cityList[this.state.CurrentColumnIndex0].areaList[2].areaName}, {key: dataList.cityList[this.state.CurrentColumnIndex0].areaList[3].areaName}]}
-                keyExtractor={item => item.keys}
-                renderItem={(item,index) => this.renderItem(item,1)}
-            />
-        );
-        pages.push(
-            <FlatList
-                data={[{key: dataList.cityList[this.state.CurrentColumnIndex0].areaList[this.state.CurrentColumnIndex1].townList[0].townName},
-                    {key: dataList.cityList[this.state.CurrentColumnIndex0].areaList[this.state.CurrentColumnIndex1].townList[1].townName},
-                    {key: dataList.cityList[this.state.CurrentColumnIndex0].areaList[this.state.CurrentColumnIndex1].townList[2].townName},
-                    {key: dataList.cityList[this.state.CurrentColumnIndex0].areaList[this.state.CurrentColumnIndex1].townList[3].townName}]}
-                keyExtractor={item => item.keys}
-                renderItem={(item,index) => this.renderItem(item,2)}
-            />
-        );
+            dataSource=dataSource.subList[this.state.ChooserIndexArray[i]];
+        }
 
         return (
             <View style={{flexDirection: 'row'}}>
@@ -96,17 +93,16 @@ export default class MultiListPicker extends React.Component {
      */
     renderItem(item,tag) {
         console.log('MultiListPicker renderItem '+ "tag="+tag)
-        var myIndex=this.getCurrentColumnSelect(tag);
-        console.log('MultiListPicker renderItem '+ "myIndex="+myIndex)
+        console.log('MultiListPicker renderItem '+ "myIndex="+this.state.ChooserIndexArray[tag])
         return (
             <MyListViewItem
                 onPressItem={()=>{
-                    console.log("MultiListPicker-----------"+tag +':'+item.index);
+                    console.log("MultiListPicker-----------tag="+tag +',index'+item.index);
                     this.itemClick(item,tag);
                     // this.itemClick();
                 }}
                 title={item.item.key}
-                onClickState={item.index ===myIndex}
+                onClickState={item.index ===this.state.ChooserIndexArray[tag]}
             />
 
         );
@@ -114,88 +110,39 @@ export default class MultiListPicker extends React.Component {
 
     }
 
-    getCurrentColumnSelect(column){
-        console.log('MultiListPicker getCurrentColumnSelect '+ "column="+column)
-        if(column===0)
-        {
-            return this.state.CurrentColumnIndex0
-        }
-        if(column===1)
-        {
-            return this.state.CurrentColumnIndex1
-        }
-        if(column===2)
-        {
-            return this.state.CurrentColumnIndex2
-        }
-
-        if(column===3)
-        {
-            return this.state.CurrentColumnIndex3
-        }
-
-
-    }
 
     itemClick(item,tag){
         console.log('MultiListPicker itemClick start '+"tag="+tag+",index="+item.index);
-        if(tag===0){
-            this.setState((state) => {
-                return {
-                    CurrentColumnIndex0: item.index,
-                }
-            })
+
+        this.state.ChooserIndexArray[tag]=item.index;
+        for(let ii=0;ii<this.state.ToTalDepth;ii++){
+            if(ii>tag){
+                this.state.ChooserIndexArray[ii]=0;
+            }
         }
-        if(tag===1){
-            this.setState((state) => {
-                return {
-                    CurrentColumnIndex1: item.index,
-                }
-            })
-        }
-        if(tag===2){
-
-            let chooseContent=dataList.cityList[this.state.CurrentColumnIndex0].cityName+
-                dataList.cityList[this.state.CurrentColumnIndex0].areaList[this.state.CurrentColumnIndex1].areaName+
-                dataList.cityList[this.state.CurrentColumnIndex0].areaList[this.state.CurrentColumnIndex1].townList[item.index].townName;
-
-                console.log('MultiListPicker itemClick  chooseContent='+chooseContent);
-
-                    //点击dismiss事件也放在这里，但是要做个判断
+        if(tag===(this.state.ToTalDepth-1)){
+            var showContent=this.getChooseContent(dataList.godProviderData);
+            console.log('MultiListPicker itemClick  chooseContent='+showContent);
             Alert.alert(
                 '选中区域为',
-                ''+chooseContent,
+                ''+showContent,
                 [
                     {text: 'OK', onPress: () => console.log('OK Pressed')},
                 ],
                 { cancelable: false }
             )
-            this.setState((state) => {
-                return {
-                    CurrentColumnIndex2: item.index,
-                }
-            })
+        }
+        this.setState((state) => {
+            return {
 
-        }
-        if(tag===3){
-            this.setState((state) => {
-                return {
-                    CurrentColumnIndex3: item.index,
-                    // 这里看下怎么拼接吧
-                    ChooseResult:item.key,
-                }
-            })
-            if(tag>=this.state.ToTalDepth)
-            console.log('MultiListPicker itemClick  chooseContent'+dataList.cityList[this.state.CurrentColumnIndex0].cityName+
-                dataList.cityList[this.state.CurrentColumnIndex0].areaList[this.state.CurrentColumnIndex1].areaName+
-                dataList.cityList[this.state.CurrentColumnIndex0].areaList[this.state.CurrentColumnIndex1].townList[this.state.CurrentColumnIndex2].townName
-            );
-        }
+            }});
+
+
 
     }
 
     /**
-     *  获取对象的长度
+     *  获取对象的长度,如果是数组返回数据长度，如果是string 返回length
      * @param o
      * @returns {number|*}
      */
@@ -221,20 +168,54 @@ export default class MultiListPicker extends React.Component {
     }
 
 
-    /**
-     * 根据数据源类型设定数据深度
+    /***
+     * 根据数据源和数据源级别确定它的深度
+     * 比如初始数据源，我们未进行剥离的时候它级别就是0 剥离一次就是级别1
      * @param dataSource
+     * @param dataLevel
+     * @returns {number|*}
      */
-    getMyCurrentDepth(dataSource) {
-        console.log('MultiListPicker getMyCurrentDepth start dataSource=' + dataSource.toString());
+    getMyCurrentDepth(dataSource,dataLevel) {
+        console.log('MultiListPicker getMyCurrentDepth start dataSource=' + dataSource.Name);
         if (dataSource.subList === null || this.getObjectLength(dataSource.subList) === 0) {
             return 0;
         } else {
-            return 1+this.getMyCurrentDepth(dataSource.subList[0])
+            if(this.objectIsUndefinedOrNull(this.state.ChooserIndexArray[dataLevel]))
+            {
+                return 0;
+            }
+            else {
+                return 1+this.getMyCurrentDepth(dataSource.subList[this.state.ChooserIndexArray[dataLevel]],dataLevel+1)
+            }
+
+        }
+
+
+    }
+
+    getDefaultCurrentDepth(dataSource) {
+        console.log('MultiListPicker getDefaultCurrentDepth start dataSource=' + dataSource.Name);
+        if (dataSource.subList === null || this.getObjectLength(dataSource.subList) === 0) {
+            return 0;
+        } else {
+                return 1+this.getDefaultCurrentDepth(dataSource.subList[0])
+
         }
 
 
     }
 
 
+    getChooseContent(data) {
+        var ChooseContent="";
+        for(let i=0;i<this.state.ToTalDepth;i++){
+            ChooseContent=ChooseContent+ data.subList[0].Name;
+            console.log('MultiListPicker getChooseContent data=' + data.subList[0].Name+" ,i="+i+", ChooseContent= "+ChooseContent);
+            data=data.subList[this.state.ChooserIndexArray[i]];
+
+
+        }
+        return ChooseContent;
+
+    }
 }
