@@ -28,7 +28,7 @@ class HomeScreen extends React.Component {
             <WhiteSpace/>
             <WhiteSpace/>
             <Button
-                title="Go to MultiListPicker"
+                title="Go to 多级联动城市列表"
                 onPress={() => this.props.navigation.navigate('MultiListPicker')}
             />
 
