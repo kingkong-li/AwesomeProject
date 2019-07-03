@@ -1,16 +1,31 @@
 import React from "react";
-import {Text, View} from "react-native";
+import {Image, Text, View} from "react-native";
 
 /**
  * @Description: 控件 ，底部选择栏
  * @Author: jingang.li
  */
-export default class BottomTab extends React.Component{
+export default class BottomTab extends React.Component {
 
     render() {
         return (
-            <View style={{alignItems: 'center', justifyContent: 'center',marginBottom:15}}>
-                <Text>底部导航栏</Text>
+            <View
+                style={{flexDirection: 'row', justifyContent: "space-between", alignItems: 'center',padding:15}}>
+                <View style={{borderColor:'#FF34B3',
+                    borderWidth:1,borderRadius:5}}>
+                    <Text style={{padding:10}}>幸运送</Text>
+                </View>
+                <View style={{borderColor:'#FF34B3',
+                    borderWidth:1,borderRadius:5}}>
+                    <Text style={{padding:10}}>发红包</Text>
+                </View>
+
+                <View style={{borderColor:'#FF34B3',
+                    borderWidth:1,borderRadius:5}}>
+                    <Text style={{padding:10}}>充值钱包</Text>
+                </View>
+
+
             </View>
         );
     }

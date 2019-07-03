@@ -5,6 +5,7 @@ import MultiListPicker from "./rn_component/MultiListPicker";
 import HomeScreen from "./rn_component/HomeScreen";
 import CoffeeWallet from "./rn_component/CoffeeWallet";
 import InvalidLuckinTickets from "./rn_component/InvalidLuckinTickets";
+import LKDiscountResult from "./rn_component/LKDiscountResult";
 
 /**
  * RN入口，在入口处
@@ -24,6 +25,7 @@ const RootStack = createStackNavigator(
         MultiListPicker:MultiListPicker,
         CoffeeWallet:CoffeeWallet,
         InvalidLuckinTickets:InvalidLuckinTickets,
+        LKDiscountResult:LKDiscountResult,
     },
     {
         initialRouteName: 'Home',

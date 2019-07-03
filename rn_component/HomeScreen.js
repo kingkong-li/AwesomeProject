@@ -50,6 +50,12 @@ export default class HomeScreen extends React.Component {
                     title="Go to 咖啡钱包"
                     onPress={() => this.props.navigation.navigate('CoffeeWallet')}
                 />
+                <WhiteSpace/>
+                <WhiteSpace/>
+                <Button
+                    title="Go to 支付失败"
+                    onPress={() => this.props.navigation.navigate('LKDiscountResult')}
+                />
 
             </View>
         );
