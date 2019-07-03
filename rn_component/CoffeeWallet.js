@@ -2,7 +2,6 @@ import React from "react";
 import {Text, View} from "react-native";
 import {LKCMTitleBar} from "./NavigationComponents";
 import BottomTab from "./BottomTab";
-import LuckinScreenUnit from "./LuckinScreenUnit";
 
 
 /**
