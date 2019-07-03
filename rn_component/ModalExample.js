@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import {Modal, Text, TouchableHighlight, View, StyleSheet} from "react-native";
 
+/**
+ * 遮盖页面
+ */
 export default class ModalExample extends React.Component {
     state = {
         modalVisible: false

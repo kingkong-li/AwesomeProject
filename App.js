@@ -1,69 +1,36 @@
 import React from 'react';
-import { Button, View, Text } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import LoginScreen from "./RN/LoginScreen"; // Version can be specified in package.json
-import ModalExample from "./RN/ModalExample";
-import MultiListPicker from "./RN/MultiListPicker";
-import {WhiteSpace} from "@ant-design/react-native";
-class HomeScreen extends React.Component {
+import ModalExample from "./rn_component/ModalExample";
+import MultiListPicker from "./rn_component/MultiListPicker";
+import HomeScreen from "./rn_component/HomeScreen";
+import CoffeeWallet from "./rn_component/CoffeeWallet";
+import InvalidLuckinTickets from "./rn_component/InvalidLuckinTickets";
 
-
-  render() {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Home Screen</Text>
-          <Button
-              title="Go to Details"
-              onPress={() => this.props.navigation.navigate('Detail')}
-          />
-            <Button
-                title="Go to Login"
-                onPress={() => this.props.navigation.navigate('Login')}
-            />
-            <WhiteSpace/>
-            <Button
-                title="Go to Modal"
-                onPress={() => this.props.navigation.navigate('Modal')}
-            />
-            <WhiteSpace/>
-            <WhiteSpace/>
-            <Button
-                title="Go to 多级联动城市列表"
-                onPress={() => this.props.navigation.navigate('MultiListPicker')}
-            />
-
-        </View>
-    );
-  }
-}
-
-class DetailsScreen extends React.Component {
-  render() {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Details Screen</Text>
-        </View>
-    );
-  }
-}
-
-const RootStack = createStackNavigator(
-    {
-      Home: HomeScreen,
-      Detail: DetailsScreen,
-        Login:LoginScreen,
-        Modal:ModalExample,
-        MultiListPicker:MultiListPicker,
-    },
-    {
-      initialRouteName: 'Home',
-    }
-);
-
-const AppContainer = createAppContainer(RootStack);
-
+/**
+ * RN入口，在入口处
+ * RN入口处其实就是把所有的View注册在一个Stack中，通过RN
+ * 的Navigator进行页面的切换
+ */
 export default class App extends React.Component {
   render() {
     return <AppContainer />;
   }
 }
+// 先定义RootStack
+const RootStack = createStackNavigator(
+    {
+        Home: HomeScreen,
+        Modal:ModalExample,
+        MultiListPicker:MultiListPicker,
+        CoffeeWallet:CoffeeWallet,
+        InvalidLuckinTickets:InvalidLuckinTickets,
+    },
+    {
+        initialRouteName: 'Home',
+    }
+);
+// 再使用RootStack 需要保持这个顺序
+const AppContainer = createAppContainer(RootStack);
+
+
+
