@@ -62,13 +62,17 @@ export default class CoffeeWallet extends React.Component {
         );
     }
 
+    /**
+     * 展示将要过期券提示
+     * @returns {null|*}
+     */
     showWillExpiredTicketTip() {
 
         if (this.state.willExpiredTicketNum === 0) {
             return null;
         } else {
             return (
-                <Text>
+                <Text style={{marginLeft:15,marginTop:15}}>
                     有n张咖啡券将要过期
                 </Text>
             );
@@ -82,7 +86,7 @@ export default class CoffeeWallet extends React.Component {
     showLuckinTicketList() {
         if (this.state.luckinTickInfoList === 0) {
             return(
-                <View style={{flex: 1}}>
+                <View style={{flex: 1,justifyContent:'center',alignItems:'center'}}>
                     <Text>
                         您的咖啡钱包有点寂寞
                     </Text>
