@@ -9,7 +9,6 @@ import BottomTab from "./BottomTab";
  * @Author : jingang.li
  *
  */
-
 export default class CoffeeWallet extends React.Component {
     /**
      * 导航栏 自定义
@@ -57,7 +56,7 @@ export default class CoffeeWallet extends React.Component {
                 {this.showWillExpiredTicketTip()}
                 {this.showLuckinTicketList()}
                 <BottomTab
-                />
+                onTableClicked={(itemId)=>this.onTabItemClicked(itemId)}/>
             </View>
         );
     }
@@ -102,5 +101,9 @@ export default class CoffeeWallet extends React.Component {
             );
         }
 
+    }
+
+    onTabItemClicked(itemId) {
+        console.log('CoffeeWallet onTabItemClicked itemId=' + itemId);
     }
 }
