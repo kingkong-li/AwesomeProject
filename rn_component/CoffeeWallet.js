@@ -12,7 +12,7 @@ import BottomTab from "./BottomTab";
 
 export default class CoffeeWallet extends React.Component {
     /**
-     * 导航栏 自定义 左边
+     * 导航栏 自定义
      * @param navigation
      * @returns {{headerRight: *, headerLeft: *, headerTitle: *}}
      */
