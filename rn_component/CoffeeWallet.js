@@ -40,6 +40,7 @@ export default class CoffeeWallet extends React.Component {
     componentWillMount() {
         //设定key
         this.props.navigation.setParams({naviKey: this.onInvalidLuckinTicketClick});
+        this.getWillExpiredTicketNum();
     }
 
     /**
@@ -72,7 +73,7 @@ export default class CoffeeWallet extends React.Component {
         } else {
             return (
                 <Text style={{marginLeft:15,marginTop:15}}>
-                    有n张咖啡券将要过期
+                    张咖啡券将要过期
                 </Text>
             );
         }
@@ -105,5 +106,20 @@ export default class CoffeeWallet extends React.Component {
 
     onTabItemClicked(itemId) {
         console.log('CoffeeWallet onTabItemClicked itemId=' + itemId);
+    }
+
+    /**
+     * 获取将要过期咖啡券数目
+     * 从网络获取
+     */
+    getWillExpiredTicketNum() {
+        // 模拟数据start
+        let number=Math.floor(Math.random()*3);
+        // 模拟数据end
+        console.log('CoffeeWallet getWillExpiredTicketNum number=' + number);
+        this.setState((prevState, props) => ({
+            willExpiredTicketNum:number,
+        }));
+
     }
 }
