@@ -56,7 +56,8 @@ export default class CoffeeWallet extends React.Component {
             <View style={{flex: 1}}>
                 {this.showWillExpiredTicketTip()}
                 {this.showLuckinTicketList()}
-                <BottomTab/>
+                <BottomTab
+                />
             </View>
         );
     }
