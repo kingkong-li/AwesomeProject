@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, View} from "react-native";
+import {Text, TouchableHighlight, View} from "react-native";
 import {LKCMTitleBar} from "./NavigationComponents";
 import BottomTab from "./BottomTab";
 
@@ -38,16 +38,9 @@ export default class CoffeeWallet extends React.Component {
 
 
     componentWillMount() {
-        //设定key
+        //为navigation 方法，这个navigation有点像一个map了
         this.props.navigation.setParams({naviKey: this.onInvalidLuckinTicketClick});
         this.getWillExpiredTicketNum();
-    }
-
-    /**
-     *
-     */
-    onInvalidLuckinTicketClick = () => {
-        this.props.navigation.navigate('InvalidLuckinTickets')
     }
 
 
@@ -57,24 +50,35 @@ export default class CoffeeWallet extends React.Component {
                 {this.showWillExpiredTicketTip()}
                 {this.showLuckinTicketList()}
                 <BottomTab
-                onTableClicked={(itemId)=>this.onTabItemClicked(itemId)}/>
+                    onTableClicked={(itemId)=>this.onTabItemClicked(itemId)}/>
             </View>
         );
     }
+
+
+    /**
+     *当标题栏中'无效券'被点击
+     */
+    onInvalidLuckinTicketClick = () => {
+        this.props.navigation.navigate('InvalidLuckinTickets')
+    }
+
 
     /**
      * 展示将要过期券提示
      * @returns {null|*}
      */
     showWillExpiredTicketTip() {
-
         if (this.state.willExpiredTicketNum === 0) {
             return null;
         } else {
+            let numberString='您有'+this.state.willExpiredTicketNum+'杯咖啡券即将过期，点击查看>'
             return (
-                <Text style={{marginLeft:15,marginTop:15}}>
-                    张咖啡券将要过期
-                </Text>
+                <TouchableHighlight onPress={() => this.onWillExpiredTicketTipClicked()} style={{padding:10,backgroundColor:'#FFE4B5'}}
+                                    underlayColor={'#FFB5C5'}>
+                    <Text style={{marginLeft:10}}> {numberString}</Text>
+                </TouchableHighlight>
+
             );
         }
     }
@@ -104,6 +108,10 @@ export default class CoffeeWallet extends React.Component {
 
     }
 
+    /**
+     *  当底部Tab列表中某一项被点击
+     * @param itemId 点击Id
+     */
     onTabItemClicked(itemId) {
         console.log('CoffeeWallet onTabItemClicked itemId=' + itemId);
     }
@@ -121,5 +129,13 @@ export default class CoffeeWallet extends React.Component {
             willExpiredTicketNum:number,
         }));
 
+    }
+
+    /**
+     * 当将要过期的Tip被点击时候触发
+     */
+    onWillExpiredTicketTipClicked() {
+        console.log('CoffeeWallet onWillExpiredTicketTipClicked');
+        this.props.navigation.navigate('CoffeeWillExpiredWallet')
     }
 }

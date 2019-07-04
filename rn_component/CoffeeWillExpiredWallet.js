@@ -2,7 +2,7 @@ import React from "react";
 import {LKCMTitleBar} from "./NavigationComponents";
 import {Text, View} from "react-native";
 
-export default class InvalidLuckinTickets extends React.Component {
+export default class CoffeeWillExpiredWallet extends React.Component {
     /**
      * 导航栏 自定义 左边
      * @param navigation
@@ -10,7 +10,7 @@ export default class InvalidLuckinTickets extends React.Component {
      */
     static navigationOptions = ({navigation}) => ({
         headerTitle:
-            <LKCMTitleBar titleName={"无效咖啡券"}/>,
+            <LKCMTitleBar titleName={'将要过期咖啡券'}/>,
         headerRight: (
             <View/>
         ),
@@ -19,7 +19,7 @@ export default class InvalidLuckinTickets extends React.Component {
     render() {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>这是无效咖啡券页面</Text>
+                <Text>这是将要过期咖啡券页面</Text>
             </View>
         );
     }

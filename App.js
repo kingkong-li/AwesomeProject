@@ -6,6 +6,7 @@ import HomeScreen from "./rn_component/HomeScreen";
 import CoffeeWallet from "./rn_component/CoffeeWallet";
 import InvalidLuckinTickets from "./rn_component/InvalidLuckinTickets";
 import LKDiscountResult from "./rn_component/LKDiscountResult";
+import CoffeeWillExpiredWallet from "./rn_component/CoffeeWillExpiredWallet";
 
 /**
  * RN入口，在入口处
@@ -26,6 +27,7 @@ const RootStack = createStackNavigator(
         CoffeeWallet:CoffeeWallet,
         InvalidLuckinTickets:InvalidLuckinTickets,
         LKDiscountResult:LKDiscountResult,
+        CoffeeWillExpiredWallet:CoffeeWillExpiredWallet,
     },
     {
         initialRouteName: 'Home',
