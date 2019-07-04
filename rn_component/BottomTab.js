@@ -14,6 +14,7 @@ export default class BottomTab extends React.Component {
      * @type {{badgeValue: *}}
      */
     static propTypes = {
+        //上标文字
         badgeValue: PropTypes.string,
         onTableClicked: PropTypes.func,
     };
