@@ -1,7 +1,8 @@
 import React from "react";
-import {Image, StyleSheet, Text, View} from "react-native";
+import {TouchableHighlight, StyleSheet, Text, View} from "react-native";
 import Badge from "@ant-design/react-native/es/badge";
 import PropTypes from 'prop-types';
+
 /**
  * @Description: 控件 ，底部选择栏
  * @Author: jingang.li
@@ -15,36 +16,49 @@ export default class BottomTab extends React.Component {
     static propTypes = {
         badgeValue: PropTypes.string,
         onTableClicked: PropTypes.func,
-    }
+    };
 
     /**
      * 为属性设定默认值
      * @type {{badgeValue: string}}
      */
     static defaultProps = {
-        badgeValue: '策略100分',
-        onTableClicked:null,
-    }
-
-
+        badgeValue: '充5送5',
+        onTableClicked: null,
+    };
 
 
     render() {
         return (
             <View style={styles.container}>
+                <TouchableHighlight onPress={() => this.onTableClick(1)} style={styles.tableStyle1}
+                                    underlayColor={'#FFB5C5'}>
+                    <Text>幸运送</Text>
+                </TouchableHighlight>
 
-                <Text style={styles.tableStyle1} onPress={(tableId)=>this.onTableClick(1)}>幸运送</Text>
-                <Text style={styles.tableStyle1} onPress={(tableId)=>this.onTableClick(2)}>发红包</Text>
+                <TouchableHighlight onPress={() => this.onTableClick(2)} style={styles.tableStyle1}
+                                    underlayColor={'#FFB5C5'}>
+                    <Text>发红包</Text>
+                </TouchableHighlight>
+
                 <Badge text={this.props.badgeValue} size='small'>
-                    <Text style={styles.tableStyle2} onPress={(tableId)=>this.onTableClick(3)}>充值钱包</Text>
+                    <TouchableHighlight onPress={() => this.onTableClick(3)} style={styles.tableStyle2}
+                                        underlayColor={'#FFB5C5'}>
+                        <Text>充值钱包</Text>
+                    </TouchableHighlight>
                 </Badge>
+
             </View>
         );
     }
 
+    /**
+     * 当某一个Tab项目点击触发
+     * @param tableId
+     */
     onTableClick(tableId) {
         console.log('BottomTab onTableClick tableId=' + tableId);
-        if(this.props.onTableClicked!=null){
+        if (this.props.onTableClicked != null) {
             this.props.onTableClicked(tableId);
         }
     }
@@ -71,8 +85,9 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingLeft: 25,
         paddingTop: 10,
-        borderColor: '#FF34B3',
-        borderWidth: 1, borderRadius: 5
+        borderColor: '#FFBBFF',
+        borderWidth: 1, borderRadius: 5,
+        backgroundColor: '#FFBBFF'
     },
 
 });
