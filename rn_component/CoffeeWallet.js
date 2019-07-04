@@ -122,7 +122,7 @@ export default class CoffeeWallet extends React.Component {
      */
     getWillExpiredTicketNum() {
         // 模拟数据start
-        let number=Math.floor(Math.random()*3);
+        let number=Math.floor(Math.random()*5);
         // 模拟数据end
         console.log('CoffeeWallet getWillExpiredTicketNum number=' + number);
         this.setState((prevState, props) => ({
