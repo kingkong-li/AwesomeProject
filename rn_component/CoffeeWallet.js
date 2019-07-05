@@ -2,7 +2,8 @@ import React from "react";
 import {Text, TouchableHighlight, View} from "react-native";
 import {LKCMTitleBar} from "./NavigationComponents";
 import BottomTab from "./BottomTab";
-
+import CoffeeTicketList from "./CoffeeTicketList";
+import {coffeeTicketData} from "./source/json/MonitorData";
 
 /**
  * @Description : 咖啡钱包页面
@@ -31,7 +32,7 @@ export default class CoffeeWallet extends React.Component {
         this.state = {
             // 将要过期咖啡券数目
             willExpiredTicketNum: 15,
-            luckinTickInfoList: 0,
+            luckinTickInfoList: 1,
 
         };
     }
@@ -99,9 +100,8 @@ export default class CoffeeWallet extends React.Component {
         } else {
             return (
                 <View style={{flex: 1}}>
-                    <Text>
-                        你有很多咖啡钱包
-                    </Text>
+                   <CoffeeTicketList
+                       dataSource={coffeeTicketData.coffeeTicketList}/>
                 </View>
             );
         }
