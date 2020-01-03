@@ -56,6 +56,13 @@ export default class HomeScreen extends React.Component {
                     title="Go to 支付失败"
                     onPress={() => this.props.navigation.navigate('LKDiscountResult')}
                 />
+                <WhiteSpace/>
+                <WhiteSpace/>
+                <WhiteSpace/>
+                <Button
+                    title="Go to 测试ES6 extend"
+                    onPress={() => this.props.navigation.navigate('Man')}
+                />
 
             </View>
         );
