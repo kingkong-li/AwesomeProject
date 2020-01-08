@@ -8,6 +8,7 @@ import InvalidLuckinTickets from "./rn_component/InvalidLuckinTickets";
 import LKDiscountResult from "./rn_component/LKDiscountResult";
 import CoffeeWillExpiredWallet from "./rn_component/CoffeeWillExpiredWallet";
 import Man from "./rn_component/extendtest/Man";
+import TestScrollTabPage from "./rn_component/scrolltabtest/TestScrollTabPage";
 
 /**
  * RN入口，在入口处
@@ -30,6 +31,7 @@ const RootStack = createStackNavigator(
         LKDiscountResult:LKDiscountResult,
         CoffeeWillExpiredWallet:CoffeeWillExpiredWallet,
         Man:Man,
+        TestScrollTabPage:TestScrollTabPage,
 
     },
     {
