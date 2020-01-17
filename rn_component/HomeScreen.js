@@ -71,6 +71,20 @@ export default class HomeScreen extends React.Component {
                     title="Go to 测试ScrollTab"
                     onPress={() => this.props.navigation.navigate('TestScrollTabPage')}
                 />
+                <WhiteSpace/>
+                <WhiteSpace/>
+                <WhiteSpace/>
+                <Button
+                    title="Go to svg"
+                    onPress={() => this.props.navigation.navigate('SvgShow')}
+                />
+                <WhiteSpace/>
+                <WhiteSpace/>
+                <WhiteSpace/>
+                <Button
+                    title="Go to 测试控件页"
+                    onPress={() => this.props.navigation.navigate('TestComponentPage')}
+                />
 
             </View>
         );

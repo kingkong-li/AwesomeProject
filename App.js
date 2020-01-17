@@ -9,6 +9,8 @@ import LKDiscountResult from "./rn_component/LKDiscountResult";
 import CoffeeWillExpiredWallet from "./rn_component/CoffeeWillExpiredWallet";
 import Man from "./rn_component/extendtest/Man";
 import TestScrollTabPage from "./rn_component/scrolltabtest/TestScrollTabPage";
+import SvgShow from "./rn_component/svg/SvgShow";
+import TestComponentPage from "./rn_component/selfdefinecomponent/TestComponentPage";
 
 /**
  * RN入口，在入口处
@@ -32,6 +34,9 @@ const RootStack = createStackNavigator(
         CoffeeWillExpiredWallet:CoffeeWillExpiredWallet,
         Man:Man,
         TestScrollTabPage:TestScrollTabPage,
+        SvgShow:SvgShow,
+        TestComponentPage:TestComponentPage
+
 
     },
     {
