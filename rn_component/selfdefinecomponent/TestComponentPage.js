@@ -18,6 +18,12 @@ export default class TestComponentPage extends React.Component {
         ),
     });
 
+    componentDidMount() {
+        let a=null
+        console.log("a.length=","error")
+        console.log("a.length=",a.length)
+    }
+
     render() {
         return (
             <View style={{flex: 1, alignItems: 'flex-start', justifyContent: 'flex-start'}}>

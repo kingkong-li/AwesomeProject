@@ -2,6 +2,7 @@ package com.awesomeproject;
 
 import android.app.Application;
 
+import com.awesomeproject.kingkongpackage.CommunicationPackage;
 import com.facebook.react.ReactApplication;
 import com.horcrux.svg.SvgPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
@@ -19,7 +20,7 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
+      return false;
     }
 
 
@@ -28,7 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new SvgPackage(),
-
+            new CommunicationPackage(),
             new RNGestureHandlerPackage()
       );
     }
@@ -39,6 +40,8 @@ public class MainApplication extends Application implements ReactApplication {
     }
   };
 
+
+
   @Override
   public ReactNativeHost getReactNativeHost() {
     return mReactNativeHost;
@@ -48,5 +51,6 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    ApplicationHolder.setApplication(this);
   }
 }
